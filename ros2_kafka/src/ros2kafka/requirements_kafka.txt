@@ -1,0 +1,2 @@
+confluent-kafka[json,schemaregistry]==2.8.0
+fastavro==1.10.0

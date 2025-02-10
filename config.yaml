@@ -1,0 +1,24 @@
+sample_pose_publisher:
+  ros__parameters:
+    ros_topic: 'my_pose_topic'
+    update_rate: 2.0
+
+kafka_data_provider_JSON:
+  ros__parameters:
+    ros_topic: 'my_pose_topic'
+    kafka_broker: 'dockerhost:9092'
+    kafka_topic: 'my_pose_topic_json'
+
+kafka_data_provider_AVRO:
+  ros__parameters:
+    ros_topic: 'my_pose_topic'
+    kafka_broker: 'dockerhost:9092'
+    kafka_topic: 'my_pose_topic_avro'
+    schema_registry: http://dockerhost:8081
+
+kafka_unitree_data_provider_AVRO:
+  ros__parameters:
+    ros_topic: 'lowstate'
+    kafka_broker: 'dockerhost:9092'
+    kafka_topic: 'unitree.h1.jointstatestamped'
+    schema_registry: http://dockerhost:8081
