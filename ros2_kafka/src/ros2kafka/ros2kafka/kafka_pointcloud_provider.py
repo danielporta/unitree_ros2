@@ -5,6 +5,13 @@ from rclpy.node import Node
 from rclpy.clock import Clock
 
 from typing import Any
+
+import socket
+import base64
+import json
+import gzip
+import struct
+
 from ros2kafka import KafkaRosNode
 
 from sensor_msgs.msg import PointCloud2
@@ -38,6 +45,25 @@ class KafkaPointCloudProvider(KafkaRosNode):
 
     def __init__(self, name:str, ros_type:Any, key_schema:str, value_schema:str):
         super().__init__(name, ros_type, key_schema, value_schema)
+        self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        
+         # Parameter
+        self.declare_parameter('pointcloud_server_ip', 'localhost')
+        self.pointcloud_server_ip = self.get_parameter('pointcloud_server_ip').get_parameter_value().string_value        
+          
+         # Parameter
+        self.declare_parameter('pointcloud_server_port', 5000)
+        self.pointcloud_server_port = self.get_parameter('pointcloud_server_port').get_parameter_value().integer_value         
+        
+        try:
+            server_address = (self.pointcloud_server_ip, self.pointcloud_server_port)
+            self.client_socket.connect(server_address)
+        except Exception as e:
+            self.get_logger().info("Error opening socket connection", e)
+    
+    def destroy_node(self):
+        self.client_socket.close()
+        return super().destroy_node()
         
     def process_message(self, msg):                
         pointcloud.timestamp.seconds = msg.header.stamp.sec
@@ -49,9 +75,38 @@ class KafkaPointCloudProvider(KafkaRosNode):
         pointcloud.pc.row_step = msg.row_step
         pointcloud.pc.is_dense = msg.is_dense
         pointcloud.pc.fields = [PointField({'name': f.name, 'offset': f.offset, 'datatype': f.datatype, 'count': f.count}) for f in msg.fields]
-        pointcloud.pc.data = bytes(msg.data)
-            
-        return (key, pointcloud)
+        
+        #self.get_logger().info(f'uncompressed size: {len(msg.data)}') 
+        
+        #pointcloud.pc.data = zlib.compress(msg.data, 1)
+        
+        dct = pointcloud.dict()
+        dct['pc']['data'] = base64.b64encode(msg.data).decode('utf-8')
+        
+        #pointcloud.pc.data = bytes(msg.data)
+               
+        #self.get_logger().info(f'  compressed size: {len(pointcloud.pc.data)}') 
+        
+        #self.get_logger().info(f'{dct}') 
+        
+        # Serialisierung in JSON
+        json_data = json.dumps(dct)
+        json_bytes = json_data.encode('utf-8')
+
+        # Komprimierung der JSON-Daten mit GZip
+        compressed_data = gzip.compress(json_bytes, gzip._COMPRESS_LEVEL_FAST)
+              
+        length_bytes = struct.pack('!I', len(compressed_data))            
+       
+        try:
+            # Zuerst Länge, dann die komprimierten Daten senden
+            self.client_socket.sendall(length_bytes)            
+            self.client_socket.sendall(compressed_data)
+            self.get_logger().info(f"data compressed and sent: {len(compressed_data)} bytes")
+        except Exception as e:
+            self.get_logger().info("Error sending message", e)
+        
+        return (key, None)
     
 
 def main(args=None):

@@ -7,7 +7,7 @@ from rclpy.clock import Clock
 from typing import Any
 from ros2kafka import KafkaRosNode
 
-from std_msgs.msg import Float32MultiArray
+from sensor_msgs.msg import JointState
 
 from libavro.de.dfki.cos.mrk40.avro.JointStateStamped import JointStateStamped
 from libavro.de.dfki.cos.mrk40.avro.SimpleKey import SimpleKey
@@ -37,7 +37,7 @@ class KafkaDynamixelProvider(KafkaRosNode):
         stamp = Clock().now().to_msg()   
         jointstate.timestamp.seconds = stamp.sec
         jointstate.timestamp.nseconds = stamp.nanosec    
-        jointstate.state.position = msg.data
+        jointstate.state.position = msg.position
             
         return (key, jointstate)
     
@@ -45,7 +45,7 @@ class KafkaDynamixelProvider(KafkaRosNode):
 def main(args=None):
     rclpy.init(args=args)
 
-    node = KafkaDynamixelProvider('kafka_dynamixel_provider', Float32MultiArray, SimpleKey.schema, JointStateStamped.schema)
+    node = KafkaDynamixelProvider('kafka_right_wrist_provider', JointState, SimpleKey.schema, JointStateStamped.schema)
 
     try:
         rclpy.spin(node)

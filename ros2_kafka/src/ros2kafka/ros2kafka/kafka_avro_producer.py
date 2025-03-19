@@ -76,9 +76,8 @@ class KafkaAvroProducer:
 
             messages_in_queue = self.kafka_producer.flush(1)
             #print(f"messages_in_queue: {messages_in_queue}")
-            
-            
-            #self.get_logger().info(f'Pose sent to Kafka: {data}')
+                        
+            _logger.info(f'Message sent to Kafka')
         except Exception as e:
             _logger.error(f'Failed to send data to Kafka: {e}')
 

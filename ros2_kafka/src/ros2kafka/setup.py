@@ -22,7 +22,9 @@ setup(
         'console_scripts': [
             'kafka_unitree_data_provider = ros2kafka.kafka_unitree_data_provider:main',
             'kafka_pointcloud_provider = ros2kafka.kafka_pointcloud_provider:main',
-            'kafka_dynamixel_provider = ros2kafka.kafka_dynamixel_provider:main'
+            'kafka_head_provider = ros2kafka.kafka_dynamixel_provider:main',
+            'kafka_left_wrist_provider = ros2kafka.kafka_dynamixel_provider:main',
+            'kafka_right_wrist_provider = ros2kafka.kafka_dynamixel_provider:main'
         ],
     },
 )
