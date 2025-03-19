@@ -44,7 +44,8 @@ Prerequisits: You have a running Apache Kafka installation together with a Schem
 
 ```
 source install/setup.bash 
-ros2 run ros2kafka kafka_unitree_data_provider_AVRO --ros-args --params-file config.yaml
+ros2 run ros2kafka kafka_unitree_data_provider --ros-args --params-file config.yaml
+ros2 run ros2kafka kafka_pointcloud_provider --ros-args --params-file config.yaml
 ```
 
 2. Replay the rosbag data.
@@ -52,6 +53,7 @@ ros2 run ros2kafka kafka_unitree_data_provider_AVRO --ros-args --params-file con
 ```
 source install/setup.bash 
 ros2 bag play --loop --topics lowstate --log-level info h1_bag/
+ros2 bag play --loop --topics zed_point_cloud --log-level info zed_bag/
 ```
 
 ## Running Kafka Example

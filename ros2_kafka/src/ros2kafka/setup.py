@@ -20,10 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'sample_pose_publisher = ros2kafka.sample_pose_publisher:main',
-            'kafka_data_provider_JSON = ros2kafka.kafka_data_provider_JSON:main',
-            'kafka_data_provider_AVRO = ros2kafka.kafka_data_provider_AVRO:main',
-            'kafka_unitree_data_provider_AVRO = ros2kafka.kafka_unitree_data_provider_AVRO:main'
+            'kafka_unitree_data_provider = ros2kafka.kafka_unitree_data_provider:main',
+            'kafka_pointcloud_provider = ros2kafka.kafka_pointcloud_provider:main'
         ],
     },
 )

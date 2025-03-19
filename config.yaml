@@ -1,24 +1,24 @@
-sample_pose_publisher:
+kafka_unitree_data_provider:
   ros__parameters:
-    ros_topic: 'my_pose_topic'
-    update_rate: 2.0
+    ros_topic: lowstate
+    kafka_topic: unitree.h1.jointstatestamped    
+    is_silent: False
+    #kafka_broker: dockerhost:9092    
+    #schema_registry: http://dockerhost:8081
+    kafka_broker: basys-lnv-1.mrk40.dfki.lan:9092
+    schema_registry: http://basys-lnv-1.mrk40.dfki.lan:8081 
+    #kafka_broker: 10.2.10.4:9092
+    #schema_registry: http://10.2.10.4:8081    
+    
 
-kafka_data_provider_JSON:
+kafka_pointcloud_provider:
   ros__parameters:
-    ros_topic: 'my_pose_topic'
-    kafka_broker: 'dockerhost:9092'
-    kafka_topic: 'my_pose_topic_json'
-
-kafka_data_provider_AVRO:
-  ros__parameters:
-    ros_topic: 'my_pose_topic'
-    kafka_broker: 'dockerhost:9092'
-    kafka_topic: 'my_pose_topic_avro'
-    schema_registry: http://dockerhost:8081
-
-kafka_unitree_data_provider_AVRO:
-  ros__parameters:
-    ros_topic: 'lowstate'
-    kafka_broker: '10.2.10.4:9092'
-    kafka_topic: 'unitree.h1.jointstatestamped'
-    schema_registry: http://10.2.10.4:8081
+    ros_topic: zed_point_cloud
+    kafka_topic: unitree.h1.pointcloudstamped
+    is_silent: True
+    #kafka_broker: dockerhost:9092    
+    #schema_registry: http://dockerhost:8081
+    kafka_broker: basys-lnv-1.mrk40.dfki.lan:9092
+    schema_registry: http://basys-lnv-1.mrk40.dfki.lan:8081
+    #kafka_broker: 10.2.10.4:9092
+    #schema_registry: http://10.2.10.4:8081    
