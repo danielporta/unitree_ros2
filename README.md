@@ -46,7 +46,18 @@ Prerequisits: You have a running Apache Kafka installation together with a Schem
 source install/setup.bash 
 ros2 run ros2kafka kafka_unitree_data_provider --ros-args --params-file config.yaml
 ros2 run ros2kafka kafka_pointcloud_provider --ros-args --params-file config.yaml
+ros2 run ros2kafka kafka_head_provider --ros-args --params-file config.yaml
+ros2 run ros2kafka kafka_left_wrist_provider --ros-args --params-file config.yaml
+ros2 run ros2kafka kafka_right_wrist_provider --ros-args --params-file config.yaml
 ```
+
+They can also be launched all together.
+
+```
+source install/setup.bash 
+ros2 launch ros2kafka launch.py
+```
+
 
 2. Replay the rosbag data.
 
@@ -54,6 +65,7 @@ ros2 run ros2kafka kafka_pointcloud_provider --ros-args --params-file config.yam
 source install/setup.bash 
 ros2 bag play --loop --topics lowstate --log-level info h1_bag/
 ros2 bag play --loop --topics zed_point_cloud --log-level info zed_bag/
+ros2 bag play --loop  --log-level info dynamixels_with_pointcloud/
 ```
 
 ## Running Kafka Example

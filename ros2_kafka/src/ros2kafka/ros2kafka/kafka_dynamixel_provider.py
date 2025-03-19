@@ -45,7 +45,7 @@ class KafkaDynamixelProvider(KafkaRosNode):
 def main(args=None):
     rclpy.init(args=args)
 
-    node = KafkaDynamixelProvider('kafka_right_wrist_provider', JointState, SimpleKey.schema, JointStateStamped.schema)
+    node = KafkaDynamixelProvider('kafka_dynamixel_provider', JointState, SimpleKey.schema, JointStateStamped.schema)
 
     try:
         rclpy.spin(node)

@@ -1,0 +1,63 @@
+kafka_unitree_data_provider:
+  ros__parameters:
+    ros_topic: lowstate
+    kafka_topic: unitree.h1.jointstatestamped    
+    is_silent: False
+    #kafka_broker: dockerhost:9092    
+    #schema_registry: http://dockerhost:8081
+    kafka_broker: basys-lnv-1.mrk40.dfki.lan:9092
+    schema_registry: http://basys-lnv-1.mrk40.dfki.lan:8081 
+    #kafka_broker: 10.2.10.4:9092
+    #schema_registry: http://10.2.10.4:8081    
+    
+
+kafka_pointcloud_provider:
+  ros__parameters:
+    ros_topic: zed_point_cloud
+    kafka_topic: unitree.h1.pointcloudstamped
+    is_silent: True
+    #kafka_broker: dockerhost:9092
+    #schema_registry: http://dockerhost:8081
+    kafka_broker: basys-lnv-1.mrk40.dfki.lan:9092
+    schema_registry: http://basys-lnv-1.mrk40.dfki.lan:8081
+    #kafka_broker: 10.2.10.4:9092
+    #schema_registry: http://10.2.10.4:8081    
+    pointcloud_server_ip: localhost
+    pointcloud_server_port: 5000
+  
+kafka_head_provider:
+  ros__parameters:
+    ros_topic: dynamixel/head
+    kafka_topic: unitree.h1.head    
+    is_silent: False
+    kafka_broker: dockerhost:9092    
+    schema_registry: http://dockerhost:8081
+    #kafka_broker: basys-lnv-1.mrk40.dfki.lan:9092
+    #schema_registry: http://basys-lnv-1.mrk40.dfki.lan:8081 
+    #kafka_broker: 10.2.10.4:9092
+    #schema_registry: http://10.2.10.4:8081    
+
+kafka_left_wrist_provider:
+  ros__parameters:
+    ros_topic: dynamixel/left_wrist
+    kafka_topic: unitree.h1.left_wrist    
+    is_silent: False
+    kafka_broker: dockerhost:9092    
+    schema_registry: http://dockerhost:8081
+    #kafka_broker: basys-lnv-1.mrk40.dfki.lan:9092
+    #schema_registry: http://basys-lnv-1.mrk40.dfki.lan:8081 
+    #kafka_broker: 10.2.10.4:9092
+    #schema_registry: http://10.2.10.4:8081   
+
+kafka_right_wrist_provider:
+  ros__parameters:
+    ros_topic: dynamixel/right_wrist
+    kafka_topic: unitree.h1.right_wrist    
+    is_silent: False
+    kafka_broker: dockerhost:9092    
+    schema_registry: http://dockerhost:8081
+    #kafka_broker: basys-lnv-1.mrk40.dfki.lan:9092
+    #schema_registry: http://basys-lnv-1.mrk40.dfki.lan:8081 
+    #kafka_broker: 10.2.10.4:9092
+    #schema_registry: http://10.2.10.4:8081    
+    
