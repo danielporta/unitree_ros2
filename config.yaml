@@ -22,3 +22,16 @@ kafka_pointcloud_provider:
     schema_registry: http://basys-lnv-1.mrk40.dfki.lan:8081
     #kafka_broker: 10.2.10.4:9092
     #schema_registry: http://10.2.10.4:8081    
+  
+kafka_dynamixel_provider:
+  ros__parameters:
+    ros_topic: dynamixel
+    kafka_topic: unitree.h1.dynamixel    
+    is_silent: True
+    #kafka_broker: dockerhost:9092    
+    #schema_registry: http://dockerhost:8081
+    kafka_broker: basys-lnv-1.mrk40.dfki.lan:9092
+    schema_registry: http://basys-lnv-1.mrk40.dfki.lan:8081 
+    #kafka_broker: 10.2.10.4:9092
+    #schema_registry: http://10.2.10.4:8081    
+    
