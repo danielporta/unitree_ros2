@@ -12,7 +12,7 @@ import json
 import gzip
 import struct
 
-from ros2kafka import KafkaRosNode
+from ros2kafka import RosListenerNode
 
 from sensor_msgs.msg import PointCloud2
 
@@ -41,10 +41,10 @@ pointcloud = PointCloudStamped(value_template_dict)
 
 key = SimpleKey({'key': 'mykey'})
 
-class KafkaPointCloudProvider(KafkaRosNode):
+class KafkaPointCloudProvider(RosListenerNode):
 
-    def __init__(self, name:str, ros_type:Any, key_schema:str, value_schema:str):
-        super().__init__(name, ros_type, key_schema, value_schema)
+    def __init__(self, name:str, ros_type:Any):
+        super().__init__(name, ros_type)
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         
          # Parameter
@@ -94,25 +94,26 @@ class KafkaPointCloudProvider(KafkaRosNode):
         json_bytes = json_data.encode('utf-8')
 
         # Komprimierung der JSON-Daten mit GZip
-        compressed_data = gzip.compress(json_bytes, gzip._COMPRESS_LEVEL_FAST)
-              
+        compressed_data = gzip.compress(json_bytes, gzip._COMPRESS_LEVEL_FAST)              
         length_bytes = struct.pack('!I', len(compressed_data))            
        
+        return (length_bytes, compressed_data)
+       
+       
+    def send_message(self, msg):    
         try:
             # Zuerst Länge, dann die komprimierten Daten senden
-            self.client_socket.sendall(length_bytes)            
-            self.client_socket.sendall(compressed_data)
-            self.get_logger().info(f"data compressed and sent: {len(compressed_data)} bytes")
+            self.client_socket.sendall(msg[0])            
+            self.client_socket.sendall(msg[1])
+            self.get_logger().info(f"data compressed and sent: {len(msg[1])} bytes")
         except Exception as e:
-            self.get_logger().info("Error sending message", e)
+            self.get_logger().info("Error sending message", e)    
         
-        return (key, None)
-    
 
 def main(args=None):
     rclpy.init(args=args)
 
-    node = KafkaPointCloudProvider('kafka_pointcloud_provider', PointCloud2, SimpleKey.schema, PointCloudStamped.schema)
+    node = KafkaPointCloudProvider('kafka_pointcloud_provider', PointCloud2)
 
     try:
         rclpy.spin(node)

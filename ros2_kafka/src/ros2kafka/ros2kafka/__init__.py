@@ -1,4 +1,5 @@
 from ros2kafka.kafka_avro_producer import KafkaAvroProducer
+from ros2kafka.ros_listener_node import RosListenerNode
 from ros2kafka.kafka_ros_node import KafkaRosNode
 from ros2kafka.kafka_pointcloud_provider import KafkaPointCloudProvider
 from ros2kafka.kafka_unitree_data_provider import KafkaUnitreeDataProvider

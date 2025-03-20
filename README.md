@@ -36,11 +36,11 @@ colcon build
 cp -r .venv/lib/python3.12/site-packages/* install/ros2kafka/lib/python3.12/site-packages
 ```
 
-## Replaying Unitree Data
+## Starting the Nodes
 
 Prerequisits: You have a running Apache Kafka installation together with a Schema Registry (only needed for AVRO format). You can then configure endpoints and topics in config.yaml
 
-1. Start the ROS2 node that transforms and provisions data to Apache Kafka in AVRO format in a new terminal.
+Start the ROS2 node that transforms and provisions data to Apache Kafka in AVRO format in a new terminal.
 
 ```
 source install/setup.bash 
@@ -55,11 +55,12 @@ They can also be launched all together.
 
 ```
 source install/setup.bash 
-ros2 launch ros2kafka launch.py
+ros2 launch ros2kafka launch.py config_file:=config.yaml
 ```
 
+## Replaying Unitree Data
 
-2. Replay the rosbag data.
+Replay the rosbag data. Choose one of the following bags.
 
 ```
 source install/setup.bash 
@@ -67,29 +68,3 @@ ros2 bag play --loop --topics lowstate --log-level info h1_bag/
 ros2 bag play --loop --topics zed_point_cloud --log-level info zed_bag/
 ros2 bag play --loop  --log-level info dynamixels_with_pointcloud/
 ```
-
-## Running Kafka Example
-
-Prerequisits: You have a running Apache Kafka installation together with a Schema Registry (only needed for AVRO format). You can then configure endpoints and topics in config.yaml
-
-1. Start the ROS2 publisher node in a new terminal.
-
-```
-source install/setup.bash 
-ros2 run ros2kafka sample_pose_publisher --ros-args --params-file config.yaml
-```
-
-2. Start the ROS2 node that provisions data to Apache Kafka in JSON format in a new terminal.
-
-```
-source install/setup.bash 
-ros2 run ros2kafka kafka_data_provider_JSON --ros-args --params-file config.yaml
-```
-
-3. Alternatively or additionally, start the ROS2 node that provisions data to Apache Kafka in AVRO format in a new terminal.
-
-```
-source install/setup.bash 
-ros2 run ros2kafka kafka_data_provider_AVRO --ros-args --params-file config.yaml
-```
-
