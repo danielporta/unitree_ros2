@@ -72,7 +72,7 @@ def generate_launch_description():
     return LaunchDescription([
         config_arg,
         kafka_unitree_node,
-        kafka_pointcloud_node,
+        # kafka_pointcloud_node,
         kafka_head_node,
         kafka_left_wrist_node,
         kafka_right_wrist_node

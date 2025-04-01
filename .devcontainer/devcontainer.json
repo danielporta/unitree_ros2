@@ -32,11 +32,11 @@
         "--pid=host",
         "--ipc=host",
         "-e", "DISPLAY=${env:DISPLAY}",
-        "--dns=10.2.0.1"
+        "--dns=192.168.1.1"
     ],
     "mounts": [
        "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
        "source=/dev/dri,target=/dev/dri,type=bind,consistency=cached"
     ],
-    "postCreateCommand": "sudo rosdep update && sudo rosdep install --from-paths cyclonedds_ws/ ros2_kafka/ --ignore-src -y && sudo chown -R $(whoami) /home/ws/ && echo 'source /opt/ros/jazzy/setup.bash' >> ~/.bashrc"
+    "postCreateCommand": "sudo chown -R $(whoami) /home/ws/ && echo 'source /opt/ros/jazzy/setup.bash' >> ~/.bashrc"
 }

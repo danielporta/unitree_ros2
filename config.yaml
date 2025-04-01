@@ -5,8 +5,8 @@ kafka_unitree_data_provider:
     is_silent: False
     #kafka_broker: dockerhost:9092    
     #schema_registry: http://dockerhost:8081
-    kafka_broker: basys-lnv-1.mrk40.dfki.lan:9092
-    schema_registry: http://basys-lnv-1.mrk40.dfki.lan:8081 
+    kafka_broker: mac-studio.fair.dfki.lan:9092
+    schema_registry: http://mac-studio.fair.dfki.lan:8081 
     #kafka_broker: 10.2.10.4:9092
     #schema_registry: http://10.2.10.4:8081    
     
@@ -25,8 +25,8 @@ kafka_head_provider:
     is_silent: False
     #kafka_broker: dockerhost:9092    
     #schema_registry: http://dockerhost:8081
-    kafka_broker: basys-lnv-1.mrk40.dfki.lan:9092
-    schema_registry: http://basys-lnv-1.mrk40.dfki.lan:8081 
+    kafka_broker: mac-studio.fair.dfki.lan:9092
+    schema_registry: http://mac-studio.fair.dfki.lan:8081 
     #kafka_broker: 10.2.10.4:9092
     #schema_registry: http://10.2.10.4:8081    
 
@@ -37,8 +37,8 @@ kafka_left_wrist_provider:
     is_silent: False
     #kafka_broker: dockerhost:9092    
     #schema_registry: http://dockerhost:8081
-    kafka_broker: basys-lnv-1.mrk40.dfki.lan:9092
-    schema_registry: http://basys-lnv-1.mrk40.dfki.lan:8081 
+    kafka_broker: mac-studio.fair.dfki.lan:9092
+    schema_registry: http://mac-studio.fair.dfki.lan:8081 
     #kafka_broker: 10.2.10.4:9092
     #schema_registry: http://10.2.10.4:8081   
 
@@ -49,8 +49,8 @@ kafka_right_wrist_provider:
     is_silent: False
     #kafka_broker: dockerhost:9092    
     #schema_registry: http://dockerhost:8081
-    kafka_broker: basys-lnv-1.mrk40.dfki.lan:9092
-    schema_registry: http://basys-lnv-1.mrk40.dfki.lan:8081 
+    kafka_broker: mac-studio.fair.dfki.lan:9092
+    schema_registry: http://mac-studio.fair.dfki.lan:8081 
     #kafka_broker: 10.2.10.4:9092
     #schema_registry: http://10.2.10.4:8081    
     
